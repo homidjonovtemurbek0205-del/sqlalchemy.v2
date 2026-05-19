@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float, func
-from sqlalchemy.orm import DeclarativeBase, Session
+from sqlalchemy.orm import DeclarativeBase, Session, Mapped, mapped_column
 from sqlalchemy import select
 
 engine = create_engine('sqlite:///movies.db', echo=False)
@@ -11,13 +11,13 @@ class Base(DeclarativeBase):
 class Movie(Base):
     __tablename__ = 'movies'
     
-    id = Column(Integer, primary_key=True)
-    title = Column(String, nullable=False)
-    genre = Column(String)
-    release_year = Column(Integer)
-    duration = Column(Integer)
-    rating = Column(Float)
-    director = Column(String)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    title: Mapped[str] = mapped_column(String, nullable=False)
+    genre: Mapped[str] = mapped_column(String)
+    release_year: Mapped[int] = mapped_column(Integer)
+    duration: Mapped[int] = mapped_column(Integer)
+    rating: Mapped[float] = mapped_column(Float)
+    director: Mapped[str] = mapped_column(String)
 
 
 Base.metadata.create_all(bind=engine)
